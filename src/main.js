@@ -18,7 +18,6 @@ let indexes = {}
  */
 function collectState() {
     const state = processFormData(new FormData(sampleTable.container));
-    console.log(state)
     const rowsPerPage = parseInt(state.rowsPerPage)
     const page = parseInt(state.page ?? 1)
 

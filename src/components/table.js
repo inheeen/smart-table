@@ -11,10 +11,6 @@ export function initTable(settings, onAction) {
     const {tableTemplate, rowTemplate, before, after} = settings;
     const root = cloneTemplate(tableTemplate);
 
-
-    // console.log(before)
-    // console.log(after)
-
     before.reverse().forEach(subName => {
         root[subName] = cloneTemplate(subName)
         root.container.prepend(root[subName].container)
@@ -41,13 +37,25 @@ export function initTable(settings, onAction) {
             e.preventDefault();
             onAction(e.target);
         }
-    });
+    })
+    root.container.addEventListener('click', (e) => {
+        if (e.target.name === 'sort' || e.target.closest('button[name="sort"]')) {
+            e.preventDefault();
+            const button = e.target.name === 'sort' ? e.target : e.target.closest('button[name="sort"]');
+            console.log('Sort button clicked:', button);
+            onAction(button);
+        }
+        
+        if (e.target.name === 'clear') {
+            e.preventDefault();
+            onAction(e.target);
+        }
+    });;
 
     const render = (data) => {
         // @todo: #1.1 — преобразовать данные в массив строк на основе шаблона rowTemplate
         const nextRows = data.map(item => {
             const row = cloneTemplate(rowTemplate)
-            console.log(row)
 
             Object.keys(item).forEach(key => {
                 if(row.elements[key]) {
