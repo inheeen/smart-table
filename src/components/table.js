@@ -42,7 +42,6 @@ export function initTable(settings, onAction) {
         if (e.target.name === 'sort' || e.target.closest('button[name="sort"]')) {
             e.preventDefault();
             const button = e.target.name === 'sort' ? e.target : e.target.closest('button[name="sort"]');
-            console.log('Sort button clicked:', button);
             onAction(button);
         }
         
@@ -63,11 +62,8 @@ export function initTable(settings, onAction) {
             if (e.target.name) {
                 button = e.target;
             } else {
-                // Если клик был по иконке внутри кнопки, находим родительскую кнопку
                 button = e.target.closest('button');
             }
-            
-            console.log('Pagination button clicked:', button);
             onAction(button);
         }
     });;
