@@ -50,6 +50,26 @@ export function initTable(settings, onAction) {
             e.preventDefault();
             onAction(e.target);
         }
+
+        if (e.target.name === 'first' || e.target.name === 'prev' || 
+            e.target.name === 'next' || e.target.name === 'last' ||
+            e.target.closest('button[name="first"]') || 
+            e.target.closest('button[name="prev"]') ||
+            e.target.closest('button[name="next"]') || 
+            e.target.closest('button[name="last"]')) {
+            e.preventDefault();
+            
+            let button;
+            if (e.target.name) {
+                button = e.target;
+            } else {
+                // Если клик был по иконке внутри кнопки, находим родительскую кнопку
+                button = e.target.closest('button');
+            }
+            
+            console.log('Pagination button clicked:', button);
+            onAction(button);
+        }
     });;
 
     const render = (data) => {
